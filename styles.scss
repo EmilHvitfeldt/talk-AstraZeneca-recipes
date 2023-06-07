@@ -1,0 +1,101 @@
+/*-- scss:defaults --*/
+
+$theme-white: #ffffff;
+$theme-dark-brown: #130907;
+$theme-martinique: #312745;
+$theme-yellow: #ffba31;
+$theme-orange: #ff8831;
+$theme-red: #e31c54;
+$theme-green: #3faf72;
+$theme-citron: #87ad25;
+$theme-pink: #ef509e;
+$theme-blue: #2498cb;
+$theme-purple: #805989;
+$theme-lemon: #f9f991;
+$theme-dark-blue: #2E3440;
+
+@import url('https://fonts.googleapis.com/css2?family=ABeeZee:ital@0;1&family=Amatic+SC:wght@400;700&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Source+Code_Pro&display=swap');
+
+$font-family-monospace: 'Source Code Pro', monospace;
+
+$body-bg: $theme-white;
+$body-color: $theme-dark-brown;
+$link-color: $theme-yellow;
+$code-color: $theme-orange;
+$presentation-heading-color: $theme-dark-brown;
+$presentation-heading-font: 'Amatic SC', sans-serif;
+$font-family-sans-serif: 'ABeeZee', sans-serif;
+$code-block-font-size: 0.8em;
+/*-- scss:rules --*/
+
+.yellow {
+  color: $theme-yellow;
+}
+
+.orange {
+  color: $theme-orange;
+}
+
+.red {
+  color: $theme-red;
+}
+
+.green {
+  color: $theme-green !important;
+}
+
+.citron {
+  color: $theme-citron;
+}
+
+.blue {
+  color: $theme-blue;
+}
+
+.pink {
+  color: $theme-pink;
+}
+
+.purple {
+  color: $theme-purple;
+}
+
+.code {
+  font-family: 'Source Code Pro', monospace;
+  font-size: 1em;
+}
+
+.mono {
+  background-color: $theme-dark-blue;
+  color: #EDEFF5;
+  font-family: 'Source Code Pro', monospace;
+  font-size: 0.8em;
+  border: none;
+  border-radius: 5px;
+  margin-bottom: 10px !important;
+  box-shadow: 0 20px 47px rgb(0 0 0 / 55%);
+  width: fit-content;
+  margin: auto !important;
+  padding: 25px;
+}
+
+.title {
+  text-align: right;
+  color: $theme-yellow;
+  text-shadow: 5px 5px $theme-orange;
+}
+
+.image-author {
+  text-align: right !important;
+  width: 98% !important;
+}
+
+.highlight-last .current-fragment {
+  color: $theme-red;
+}
+
+div.cell-output.cell-output-stdout > pre > code {
+  max-height: 1000px;
+}

@@ -1,0 +1,685 @@
+---
+format:
+  revealjs:
+    theme: [default, styles.scss]
+    width: 1280
+    height: 720
+    code-line-numbers: false
+echo: true
+---
+
+## {background-image="backgrounds/anshu-a.jpg"} 
+
+<br> <br> <br>
+
+::: {.r-fit-text .title}
+Flexible  
+feature engineering  
+using {recipes} 
+:::
+
+::: {.footer .image-author}
+Photo by <a href="https://unsplash.com/de/@anshu18?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Anshu A</a> on <a href="https://unsplash.com/photos/NVX1scNPthk?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
+:::
+
+## {background-image="backgrounds/anshu-a.jpg" background-opacity=0.5} 
+
+<br> <br> <br> <br> <br>
+
+::: {.r-fit-text .title}
+What is   
+feature engineering?
+:::
+
+::: {.footer .image-author}
+Photo by <a href="https://unsplash.com/de/@anshu18?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Anshu A</a> on <a href="https://unsplash.com/photos/NVX1scNPthk?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
+:::
+
+## {background-image="backgrounds/anshu-a.jpg" background-opacity=0.25} 
+
+<br> <br> <br> <br> <br> <br> <br> <br> <br>
+
+::: {.r-fit-text .title}
+What are features?
+:::
+
+::: {.footer .image-author}
+Photo by <a href="https://unsplash.com/de/@anshu18?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Anshu A</a> on <a href="https://unsplash.com/photos/NVX1scNPthk?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
+:::
+
+
+## {background-color="#ffffff"}
+
+![](images/tidydata_1.jpg){fig-alt="Stylized text providing an overview of Tidy Data. The top reads “Tidy data is a standard way of mapping the meaning of a dataset to its structure. - Hadley Wickham.” On the left reads “In tidy data: each variable forms a column; each observation forms a row; each cell is a single measurement.” There is an example table on the lower right with columns ‘id’, ‘name’ and ‘color’ with observations for different cats, illustrating tidy data structure."}
+
+::: {.footer .image-author}
+Illustrations from the [Openscapes](https://www.openscapes.org/) blog [Tidy Data for reproducibility, efficiency, and collaboration](https://www.openscapes.org/blog/2020/10/12/tidy-data/) by Julia Lowndes and Allison Horst
+:::
+
+## {.center}
+
+I tend to think of a feature as some representation of a predictor that will be used in a model.
+
+Old-school features:
+
+- Interactions
+- Polynomial expansions/splines
+- PCA feature extraction
+
+“Feature engineering” sounds pretty cool, but let’s take a minute to talk about preprocessing data.
+
+## Two types of preprocessing
+
+![](images/fe_venn.svg){fig-align="center"}
+
+## Two types of preprocessing
+
+![](images/fe_venn_info.svg){fig-align="center"}
+
+## General definitions {.center}
+
+<br>
+
+* _Data preprocessing_ are the steps that you take to make your model [successful]{.green} 
+* _Feature engineering_ are what you do to the original predictors to make the model do the [least work]{.green} to perform great 
+
+## {.center}
+
+Some models can't handle non-numeric data (missing data)
+
+- Linear Regression
+- K Nearest Neighbors
+
+<br>
+
+::: fragment
+
+Some models are fine with categorical variables
+
+- most tree based models
+
+:::
+
+<br>
+
+::: fragment
+
+Some models struggle if numeric variables aren't scaled
+
+- K Nearest Neighbors
+- Anything using gradient descent
+
+:::
+
+## Working with dates
+
+Consider a datetime field. If given as a raw predictor, it is converted to an integer. 
+
+<br>
+
+::: fragment
+
+It can be re-encoded as:
+
+* Days since a reference date
+* Day of the week
+* Month
+* Year
+* Indicators for holidays
+:::
+
+## {background-image="backgrounds/yulia-khlebnikova.jpg"}
+
+::: columns
+::: {.column width="50%"}
+
+::: {.fragment fragment-index=1 style="text-align:center;"}
+### static
+:::
+
+::: {.fragment fragment-index=2}
+- sqrt, log, inverse, BoxCox
+- dummies with known levels
+- date time extractions
+:::
+
+:::
+
+::: {.column width="50%"}
+
+::: {.fragment fragment-index=1 style="text-align:center;"}
+### trained
+:::
+
+::: {.fragment fragment-index=3}
+- centering & scaling
+- Imputation
+- PCA
+- anything for unknown levels
+:::
+
+:::
+:::
+
+::: {.footer .image-author}
+Photo by <a href="https://unsplash.com/pt-br/@khlebnikovayulia?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Yulia Khlebnikova</a> on <a href="https://unsplash.com/photos/3-JVAA7wNOE?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
+:::
+
+## {background-image="backgrounds/yulia-khlebnikova.jpg"}
+
+::: r-fit-text
+Trained methods needs to  
+calculate [sufficient information]{.green}  
+to be applied again
+:::
+
+::: {.footer .image-author}
+Photo by <a href="https://unsplash.com/pt-br/@khlebnikovayulia?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Yulia Khlebnikova</a> on <a href="https://unsplash.com/photos/3-JVAA7wNOE?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
+:::
+
+## Considerations
+
+<br>
+
+if all methods are static, they can be done ahead of time
+
+<br>
+
+- good for computational methods
+    - BERT
+- bad for fast and expanding methods
+    - feature hashing
+
+<br>
+
+anything after a trained transformation needs to be done within the modeling process
+
+## {background-iframe="logo-fall/index.html"}
+
+![](images/tidymodels.svg){fig-align="center"}
+
+## {recipes} package
+
+extensible framework for pipeable sequences of feature engineering steps provides preprocessing tools to be applied to data
+
+::: {.incremental .highlight-last}
+- Modular + extensible
+- pipeable
+- Deferred evaluation
+- Isolates test data from training data
+- Can do things formulas can't
+:::
+
+## What is a recipe?
+
+:::{.mono}
+recipe(sale_price ~ ., data = ames_training) |>  
+\ \ step_unknown(all_nominal_predictors()) |>  
+\ \ step_other(all_nominal_predictors()) |>  
+\ \ step_dummy(all_nominal_predictors()) |>  
+\ \ step_date(date_sold, features = c("month", "dow", "week")) |>  
+\ \ step_zv(all_predictors()) |>  
+\ \ step_normalize(all_numeric_predictors())
+:::
+
+## What is a recipe?
+
+:::{.mono}
+[recipe(sale_price ~ ., data = ames_training)]{.yellow} |>  
+\ \ step_unknown(all_nominal_predictors()) |>  
+\ \ step_other(all_nominal_predictors()) |>  
+\ \ step_dummy(all_nominal_predictors()) |>  
+\ \ step_date(date_sold, features = c("month", "dow", "week")) |>  
+\ \ step_zv(all_predictors()) |>  
+\ \ step_normalize(all_numeric_predictors())
+:::
+
+<br>
+
+[Start by calling `recipe()` to denote the data source and variables used]{.yellow}
+
+## What is a recipe?
+
+:::{.mono}
+recipe(sale_price ~ ., data = ames_training) |>  
+\ \ [step_unknown]{.orange}(all_nominal_predictors()) |>  
+\ \ [step_other]{.orange}(all_nominal_predictors()) |>  
+\ \ [step_dummy]{.orange}(all_nominal_predictors()) |>  
+\ \ [step_date]{.orange}(date_sold, features = c("month", "dow", "week")) |>  
+\ \ [step_zv]{.orange}(all_predictors()) |>  
+\ \ [step_normalize]{.orange}(all_numeric_predictors())
+:::
+
+<br>
+
+[specifying what actions to take by adding `step_*()`s]{.orange}
+
+## What is a recipe?
+
+:::{.mono}
+recipe(sale_price ~ ., data = ames_training) |>  
+\ \ step_unknown([all_nominal_predictors()]{.red}) |>  
+\ \ step_other([all_nominal_predictors()]{.red}) |>  
+\ \ step_dummy([all_nominal_predictors()]{.red}) |>  
+\ \ step_date([date_sold]{.red}, features = c("month", "dow", "week")) |>  
+\ \ step_zv([all_predictors()]{.red}) |>  
+\ \ step_normalize([all_numeric_predictors()]{.red})
+:::
+<br>
+
+[using {tidyselect} and recipes specific selectors to denote affected variables]{.red}
+
+## What is a recipe?
+
+:::{.mono}
+recipe(sale_price ~ ., data = ames_training) |>  
+\ \ step_unknown(all_nominal_predictors()) |>  
+\ \ step_other(all_nominal_predictors()) |>  
+\ \ step_dummy(all_nominal_predictors()) |>  
+\ \ step_date(date_sold, [features = c("month", "dow", "week")]{.green}) |>  
+\ \ step_zv(all_predictors()) |>  
+\ \ step_normalize(all_numeric_predictors())
+:::
+<br>
+
+[many steps have options to modify behavior]{.green}
+
+## Using a recipe
+
+:::{.mono}
+rec_spec <- recipe(sale_price ~ ., data = ames_training) |>  
+\ \ step_unknown(all_nominal_predictors()) |>  
+\ \ step_other(all_nominal_predictors()) |>  
+\ \ step_dummy(all_nominal_predictors()) |>  
+\ \ step_date(date_sold, features = c("month", "dow", "week")) |>  
+\ \ step_zv(all_predictors()) |>  
+\ \ step_normalize(all_numeric_predictors())
+:::
+
+[recipes are can be used with {workflows} to "combine" it with a model]{.citron}
+
+:::{.mono}
+wf_spec <- workflow() |>  
+\ \ [add_recipe(rec_spec)]{.citron} |>  
+\ \ add_model(linear_reg())
+:::
+
+## recipes are estimated
+
+<br>
+
+Every preprocessing step in a recipe that involved  
+calculations uses the *training* set. For example:
+
+- Levels of a factor
+- Determination of zero-variance
+- Normalization
+- Feature extraction
+
+Once a a recipe is added to a workflow,  
+this occurs when `fit()` is called.
+
+## types of steps - trained
+
+:::{.mono}
+recipe(sale_price ~ ., data = ames_training) |>  
+\ \ step_unknown(all_nominal_predictors()) |>  
+\ \ [step_other(all_nominal_predictors())]{.blue} |>  
+\ \ step_dummy(all_nominal_predictors()) |>  
+\ \ step_date(date_sold, features = c("month", "dow", "week")) |>  
+\ \ step_zv(all_predictors()) |>  
+\ \ step_normalize(all_numeric_predictors())
+:::
+
+<br>
+
+[Levels not found in tranining data set are set to "unseen"]{.blue}
+
+## types of steps - trained
+
+:::{.mono}
+recipe(sale_price ~ ., data = ames_training) |>  
+\ \ step_unknown(all_nominal_predictors()) |>  
+\ \ step_other(all_nominal_predictors()) |>  
+\ \ [step_dummy(all_nominal_predictors())]{.blue} |>  
+\ \ step_date(date_sold, features = c("month", "dow", "week")) |>  
+\ \ step_zv(all_predictors()) |>  
+\ \ step_normalize(all_numeric_predictors())
+:::
+
+<br>
+
+[records which levels are seen in training data set]{.blue}
+
+## types of steps - trained
+
+:::{.mono}
+recipe(sale_price ~ ., data = ames_training) |>  
+\ \ step_unknown(all_nominal_predictors()) |>  
+\ \ step_other(all_nominal_predictors()) |>  
+\ \ step_dummy(all_nominal_predictors()) |>  
+\ \ step_date(date_sold, features = c("month", "dow", "week")) |>  
+\ \ [step_zv(all_predictors())]{.blue} |>  
+\ \ step_normalize(all_numeric_predictors())
+:::
+
+<br>
+
+[records which variables had zero variance]{.blue}
+
+## types of steps - trained
+
+:::{.mono}
+recipe(sale_price ~ ., data = ames_training) |>  
+\ \ step_unknown(all_nominal_predictors()) |>  
+\ \ step_other(all_nominal_predictors()) |>  
+\ \ step_dummy(all_nominal_predictors()) |>  
+\ \ step_date(date_sold, features = c("month", "dow", "week")) |>  
+\ \ step_zv(all_predictors()) |>  
+\ \ [step_normalize(all_numeric_predictors())]{.blue}
+:::
+
+<br>
+
+[records mean and sd of variables]{.blue}
+
+## types of steps - static
+
+:::{.mono}
+recipe(sale_price ~ ., data = ames_training) |>  
+\ \ [step_unknown(all_nominal_predictors())]{.pink} |>  
+\ \ step_other(all_nominal_predictors()) |>  
+\ \ step_dummy(all_nominal_predictors()) |>  
+\ \ [step_date(date_sold, features = c("month", "dow", "week"))]{.pink} |>  
+\ \ step_zv(all_predictors()) |>  
+\ \ step_normalize(all_numeric_predictors())
+:::
+
+<br>
+
+[these steps provide static transformations, and could thus be done outside before the recipe]{.pink}
+
+## {background-color="#ffffff"}
+
+![](images/recipes.png){fig-alt="A cartoon showing the progression of a fuzzy green round monster baking something, representing steps for data pre-processing available in the recipes package. From left to right: a pantry labeled “Variables pantry” where the monster is picking “response” and “predictor” variables, with text below reading “1. Specify variables”, then the monster writing pre-processing steps on a chalkboard (text reads “define pre-processing steps”), then the monster carrying boxes full of data (text reads “Provide datasets for recipe steps”), and finally the monster mixing things with a stand mixer, pouring contents into different tupperwares labeled “imputed”, “scaled”, “centered”, with text below reading “Apply pre-processing!”"}
+
+::: {.footer .image-author}
+Artwork by @allison_horst
+:::
+
+## Extensive role selection
+
+All steps use {tidyselect} to select variables
+
+<br>
+
+:::{.mono}
+... |>  
+step_pca([BsmtFin_SF_1]{.orange}, [BsmtFin_SF_2]{.orange}, [Bsmt_Unf_SF]{.orange},  
+\ \ \ \ \ \ \ \ \ [Total_Bsmt_SF]{.orange}, [First_Flr_SF]{.orange}, [Second_Flr_SF]{.orange},  
+\ \ \ \ \ \ \ \ \ [Wood_Deck_SF]{.orange}, [Open_Porch_SF]{.orange},  
+\ \ \ \ \ \ \ \ \ threshold = 0.8) |>  
+...
+:::
+
+<br>
+
+variables can be written out one by one
+
+## Extensive role selection
+
+All steps use {tidyselect} to select variables
+
+<br>
+
+:::{.mono}
+... |>  
+step_pca([contains("SF")]{.orange}, threshold = 0.8) |>  
+...
+:::
+
+<br>
+
+using `tidyselect::contains()`
+
+## Extensive role selection
+
+All steps use {tidyselect} to select variables
+
+<br>
+
+:::{.mono}
+... |>  
+step_pca([contains("SF")]{.orange}, -[starts_with("Bsmt")]{.orange},  
+\ \ \ \ \ \ \ \ \ threshold = 0.8) |>  
+...
+:::
+
+<br>
+
+or combine multiple {tidyselect} selectors
+
+## Useful selectors - tidyselect
+
+- `starts_with()`
+- `ends_with()`
+- `contains()`
+- `matches()`
+- `num_range()`
+- `one_of()`
+- `any_of()`
+
+## Useful selectors - recipes
+
+In addition to `all_predictors()` and `all_outcomes()`
+
+::: columns
+::: {.column width="50%"}
+- [all_numeric()]{.green .code}
+    - [all_double()]{.green .code}
+    - [all_integer()]{.green .code}
+- [all_logical()]{.pink .code}
+- [all_date()]{.blue}
+- [all_datetime()]{.red}
+:::
+
+::: {.column width="50%"}
+- [all_nominal()]{.purple .code}
+    - [all_string()]{.purple .code}
+    - [all_factor()]{.purple .code}
+    - [all_unordered()]{.purple .code}
+    - [all_ordered()]{.purple .code}
+    
+all have `*_predictors()` variants
+:::
+:::
+
+## Tidying a recipe
+
+We can use `prep()` to "train" a recipe
+
+```{r}
+#| echo: false
+set.seed(1234)
+library(tidymodels)
+ames_training <- ames |>
+  rename(sale_price = Sale_Price)
+```
+
+```{r}
+rec <- recipe(sale_price ~ ., data = ames_training) |>
+  step_unknown(all_nominal_predictors()) |>
+  step_other(all_nominal_predictors()) |>
+  step_dummy(all_nominal_predictors()) |>
+  step_nzv(all_predictors()) |>
+  step_normalize(all_numeric_predictors())
+
+rec_prepped <- prep(rec)
+```
+
+## Tidying a recipe
+
+running `tidy()` reveals the steps and basic information
+
+```{r}
+rec_prepped |>
+  tidy()
+```
+
+## Tidying a recipe
+
+you can use `number` or `id` to select a step
+
+```{r}
+rec_prepped |>
+  tidy(number = 4) # id = "nzv_RUieL"
+```
+
+## Tidying a recipe
+
+you can use `number` or `id` to select a step
+
+```{r}
+rec_prepped |>
+  tidy(number = 3) # id = "dummy_pdHMv"
+```
+
+## Extension packages
+
+::: columns
+::: {.column width="50%"}
+- [tidymodels/textrecipes](https://github.com/tidymodels/textrecipes)
+- [tidymodels/embed](https://github.com/tidymodels/embed)
+- [tidymodels/themis](https://github.com/tidymodels/themis)
+- [business-science/timetk](https://github.com/business-science/timetk)
+- [stevenpawley/colino](https://github.com/stevenpawley/colino)
+- [jameshwade/measure](https://github.com/jameshwade/measure)
+- [petersonR/bestNormalize](https://github.com/petersonR/bestNormalize)
+- [spsanderson/healthyR.ai](https://github.com/spsanderson/healthyR.ai)
+- [spsanderson/healthyR.ts](https://github.com/spsanderson/healthyR.ts)
+- [jkennel/hydrorecipes](https://github.com/jkennel/hydrorecipes)
+:::
+
+::: {.column width="50%"}
+
+:::
+:::
+
+## Extension packages
+
+::: columns
+::: {.column width="50%"}
+- [tidymodels/textrecipes](https://github.com/tidymodels/textrecipes){.green}
+- [tidymodels/embed](https://github.com/tidymodels/embed)
+- [tidymodels/themis](https://github.com/tidymodels/themis)
+- [business-science/timetk](https://github.com/business-science/timetk)
+- [stevenpawley/colino](https://github.com/stevenpawley/colino)
+- [jameshwade/measure](https://github.com/jameshwade/measure)
+- [petersonR/bestNormalize](https://github.com/petersonR/bestNormalize)
+- [spsanderson/healthyR.ai](https://github.com/spsanderson/healthyR.ai)
+- [spsanderson/healthyR.ts](https://github.com/spsanderson/healthyR.ts)
+- [jkennel/hydrorecipes](https://github.com/jkennel/hydrorecipes)
+:::
+
+::: {.column width="50%" }
+Provides steps to handle text variable
+
+- tokenization
+- filtering
+- counting
+:::
+:::
+
+## Extension packages
+
+::: columns
+::: {.column width="50%"}
+- [tidymodels/textrecipes](https://github.com/tidymodels/textrecipes)
+- [tidymodels/embed](https://github.com/tidymodels/embed){.green}
+- [tidymodels/themis](https://github.com/tidymodels/themis)
+- [business-science/timetk](https://github.com/business-science/timetk)
+- [stevenpawley/colino](https://github.com/stevenpawley/colino)
+- [jameshwade/measure](https://github.com/jameshwade/measure)
+- [petersonR/bestNormalize](https://github.com/petersonR/bestNormalize)
+- [spsanderson/healthyR.ai](https://github.com/spsanderson/healthyR.ai)
+- [spsanderson/healthyR.ts](https://github.com/spsanderson/healthyR.ts)
+- [jkennel/hydrorecipes](https://github.com/jkennel/hydrorecipes)
+:::
+
+::: {.column width="50%"}
+Advanced methods to embed categorical and numeric variables to smaller vector spaces
+
+- weight of evidence
+- string collapsing
+- PCA variants
+:::
+:::
+
+## Extension packages
+
+::: columns
+::: {.column width="50%"}
+- [tidymodels/textrecipes](https://github.com/tidymodels/textrecipes)
+- [tidymodels/embed](https://github.com/tidymodels/embed)
+- [tidymodels/themis](https://github.com/tidymodels/themis){.green}
+- [business-science/timetk](https://github.com/business-science/timetk)
+- [stevenpawley/colino](https://github.com/stevenpawley/colino)
+- [jameshwade/measure](https://github.com/jameshwade/measure)
+- [petersonR/bestNormalize](https://github.com/petersonR/bestNormalize)
+- [spsanderson/healthyR.ai](https://github.com/spsanderson/healthyR.ai)
+- [spsanderson/healthyR.ts](https://github.com/spsanderson/healthyR.ts)
+- [jkennel/hydrorecipes](https://github.com/jkennel/hydrorecipes)
+:::
+
+::: {.column width="50%"}
+Steps to deal with imbalanced data
+
+- up and down-sampling
+- SMOTE variants
+- ADASYN
+:::
+:::
+
+## Extension packages
+
+::: columns
+::: {.column width="50%"}
+- [tidymodels/textrecipes](https://github.com/tidymodels/textrecipes)
+- [tidymodels/embed](https://github.com/tidymodels/embed)
+- [tidymodels/themis](https://github.com/tidymodels/themis)
+- [business-science/timetk](https://github.com/business-science/timetk){.green}
+- [stevenpawley/colino](https://github.com/stevenpawley/colino)
+- [jameshwade/measure](https://github.com/jameshwade/measure)
+- [petersonR/bestNormalize](https://github.com/petersonR/bestNormalize)
+- [spsanderson/healthyR.ai](https://github.com/spsanderson/healthyR.ai)
+- [spsanderson/healthyR.ts](https://github.com/spsanderson/healthyR.ts)
+- [jkennel/hydrorecipes](https://github.com/jkennel/hydrorecipes)
+:::
+
+::: {.column width="50%"}
+Time based methods
+
+- time series signatures
+- lags & diffs
+- smoothing
+:::
+:::
+
+## {background-image="backgrounds/brooke-lark.jpg"}
+
+<br> <br> <br>
+
+::: {.title style="font-size: 100px;"}
+Thank You!
+:::
+
+<br> <br> <br>
+
+::: {style="font-size: 60px; text-align: right;"}
+read more at [recipes.tidymodels](https://recipes.tidymodels.org/)
+:::
+
+
+::: {.footer .image-author}
+Photo by <a href="https://unsplash.com/@brookelark?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Brooke Lark</a> on <a href="https://unsplash.com/photos/soCYO4mMVWk?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
+:::
